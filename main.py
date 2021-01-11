@@ -6,17 +6,22 @@ import pyautogui
 import win32api
 import cv2
 
-dimensions = [780, 360, 344, 580]
-X = 1130
+# Add dimensions of your game screen
+dimensions = [780, 360, 344, 580]  # (Top X, Top Y, width, height)
+X = 1130  # X position of the board
+
 xPos = []
 yPos = []
 startTime = 0
 endTime = 0
 timeTaken = 0
 
+# To start AI press 'h'
 keyboard.wait("h")
+# To stop AI press 'q'
 while not keyboard.is_pressed('q'):
     failed = False
+    # Locates the ball on the screen and adds to the list
     try:
         x, y = pyautogui.locateCenterOnScreen('ball.png',
                                               region=(dimensions[0], dimensions[1], dimensions[2], dimensions[3]),
@@ -33,6 +38,7 @@ while not keyboard.is_pressed('q'):
     except:
         failed = True
 
+    # Calculates the future position of the ball and places the board there
     if not failed:
         if len(xPos) == 2:
             xSpeed = (xPos[1] - xPos[0]) / timeTaken
